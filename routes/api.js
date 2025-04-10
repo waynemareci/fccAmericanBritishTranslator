@@ -8,6 +8,6 @@ module.exports = function (app) {
 
   app.route('/api/translate')
     .post((req, res) => {
-      
+      console.log("in /api/translate post")
     });
 };
