@@ -23,12 +23,23 @@ module.exports = function (app) {
       res.json({ error: 'No text to translate' })
       return
     }
-    if (locale !== 'british-to-american' || locale !== 'american-to-british') {
+    if (locale !== 'british-to-american' && locale !== 'american-to-british') {
       console.log('invalid locale')
       res.json({ error: 'Invalid value for locale field' })
       return
     }
     const returnString = translator.translate(req.body.text, req.body.locale)
-    console.log('returnString: ' + returnString)
+    if (returnString === inputText) {
+      console.log('input and output match')
+      res.json({ text: inputText, translation: 'Everything looks good to me!' })
+      return
+    }
+    console.log(
+      'top level, ready to send: sending text:\n' +
+        inputText +
+        '\nand translation:\n' +
+        returnString
+    )
+    res.json({ text: inputText, translation: returnString })
   })
 }
